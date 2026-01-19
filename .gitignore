@@ -1,0 +1,12 @@
+﻿
+bin/
+obj/
+.vs/
+.vscode/
+
+appsettings.Development.json
+
+*.mdf
+*.ldf
+
+publish/
