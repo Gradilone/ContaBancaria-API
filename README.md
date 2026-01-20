@@ -69,13 +69,13 @@ Para validar o funcionamento completo da API , siga estes passos através da int
     * Clique em *Try it out* e depois em *Execute*.
     * Aqui você receberá a lista de todos os usuários cadastrados e seus respectivos dados como o número da conta para realizar transferências
 
-5.  **Transferir: **
+5.  **Transferir:**
     * Vá ao endpoint `GET /transfer`.
     * Clique em *Try it out* e depois em *Execute*.
     * Preencha o número da conta a ser transferida e o valor nos campos indicados
     * Se tudo estiver correto, você receberá um `Status 200` com mensagem de confirmação e o valor trasnferido será debitado da conta atual e adicionado a conta desejada.
 
-6.  **Consultar extrato: **
+6.  **Consultar extrato:**
     * Vá ao endpoint `GET /api/Account/extract`.
     * Clique em *Try it out* e depois em *Execute*.
     * Aqui você receberá a lista de todas as movimentações feitas na conta atual logada
