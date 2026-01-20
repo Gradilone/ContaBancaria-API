@@ -1,0 +1,24 @@
+﻿version: '3.4'
+
+services:
+  db-banco:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    environment:
+      - ACCEPT_EULA=Y
+      - MSSQL_SA_PASSWORD=Bank@Docker2026
+    ports:
+      - "1433:1433"
+
+  api-projeto:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "5000:8080" # Você acessará em http://localhost:5000/swagger
+    depends_on:
+      - db-banco
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development 
+      - ASPNETCORE_URLS=http://+:8080
+      - ConnectionStrings__DefaultConnection=Server=db-banco;Database=ContaBancariaDB;User Id=sa;Password=Bank@Docker2026;TrustServerCertificate=True
+      - Jwt__Key=8zP9kL2mR5vX7nQjW4tS1aB6eH9dG3fC0uI5yO8zN2M

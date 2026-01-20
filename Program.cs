@@ -86,18 +86,37 @@ builder.Services.AddAuthentication(x =>
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+app.UseSwagger();
+app.UseSwaggerUI();
 
-app.UseHttpsRedirection();
+
+//app.UseHttpsRedirection();
 
 app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
+
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+    var context = services.GetRequiredService<AppDbContext>();
+
+    for (int i = 0; i < 5; i++)
+    {
+        try
+        {
+            context.Database.Migrate();
+            Console.WriteLine(" Banco de Dados conectado e Migrations aplicadas!");
+            break;
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($" Tentativa {i + 1}: Banco ainda não disponível. Aguardando...");
+            System.Threading.Thread.Sleep(5000); 
+            if (i == 4) throw; 
+        }
+    }
+}
 
 app.Run();
