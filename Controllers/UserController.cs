@@ -12,7 +12,7 @@ namespace ContaBancaria_API.Controllers
         private readonly IUserRepository _userRepository;
         private readonly ITokenService _tokenService;
 
-        public UserController(IUserRepository userRepository, ITokenService tokenService)
+        public UserController(IUserRepository userRepository, ITokenService tokenService, IAccountRepository accountRepository)
         {
             _userRepository = userRepository;
             _tokenService = tokenService;
@@ -39,7 +39,7 @@ namespace ContaBancaria_API.Controllers
                 Account = new Account
                 {
                     AccountNumber = accountNumber,
-                    Balance = 0
+                    Balance = 100m
                 }
             };
 
@@ -62,9 +62,11 @@ namespace ContaBancaria_API.Controllers
             return Ok(new
             {
                 Token = token,
-                User = new { user.Name, user.Email }
+                User = new { user.Name, user.Email}
             }); 
         }
+
+        
 
     }
 }

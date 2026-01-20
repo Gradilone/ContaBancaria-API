@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ContaBancaria_API.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20260119010319_RebuildDatabase")]
-    partial class RebuildDatabase
+    [Migration("20260120001313_FixBalance")]
+    partial class FixBalance
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -38,7 +38,9 @@ namespace ContaBancaria_API.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("Balance")
-                        .HasColumnType("decimal(18,2)");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("decimal(18,2)")
+                        .HasDefaultValue(100m);
 
                     b.Property<decimal>("Extract")
                         .HasColumnType("decimal(18,2)");
@@ -62,14 +64,24 @@ namespace ContaBancaria_API.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("AccountId")
+                    b.Property<int?>("AccountId")
                         .HasColumnType("int");
 
                     b.Property<decimal>("Amount")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<DateTime>("CreatedAt")
+                    b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("ReceiverAccountId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("SenderAccountId")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -87,21 +99,19 @@ namespace ContaBancaria_API.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Email")
-                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Name")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Password")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("Email")
-                        .IsUnique();
+                        .IsUnique()
+                        .HasFilter("[Email] IS NOT NULL");
 
                     b.ToTable("Users");
                 });
@@ -119,13 +129,9 @@ namespace ContaBancaria_API.Migrations
 
             modelBuilder.Entity("ContaBancaria_API.Models.Transaction", b =>
                 {
-                    b.HasOne("ContaBancaria_API.Models.Account", "Account")
+                    b.HasOne("ContaBancaria_API.Models.Account", null)
                         .WithMany("Transactions")
-                        .HasForeignKey("AccountId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Account");
+                        .HasForeignKey("AccountId");
                 });
 
             modelBuilder.Entity("ContaBancaria_API.Models.Account", b =>
