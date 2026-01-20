@@ -41,7 +41,7 @@ cd ContaBancaria-API
 docker-compose up --build
 
 ```
-
+---
 ## Fluxo de Teste Sugerido
 
 Para validar o funcionamento completo da API , siga estes passos através da interface do Swagger:
