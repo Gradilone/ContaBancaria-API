@@ -20,13 +20,22 @@ Esta é uma API REST robusta desenvolvida para simular um sistema bancário digi
 * **Swagger/OpenAPI** (Documentação e testes da API)
 * **Repository Pattern** (Padronização do acesso a dados)
 ---
-## Configuração e Execução
+## 📦 Configuração e Execução (Docker)
+
+Projeto configurado com docker!
 
 ### 1. Pré-requisitos
-* [.NET 8 SDK](https://dotnet.microsoft.com/download/dotnet/8.0)
-* SQL Server (LocalDB ou Express)
+* [Docker Desktop](https://www.docker.com/products/docker-desktop/) instalado e rodando.
 
-### 2. Clonar o Projeto
+### 2. Clonar e Rodar
+No seu terminal, execute os comandos abaixo:
+
 ```bash
+# Clone o repositório
 git clone [https://github.com/SeuUsuario/ContaBancaria-API.git](https://github.com/SeuUsuario/ContaBancaria-API.git)
+
+# Entre na pasta
 cd ContaBancaria-API
+
+# Suba a aplicação e o banco de dados
+docker-compose up --build
