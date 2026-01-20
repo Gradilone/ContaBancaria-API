@@ -3,6 +3,7 @@
 services:
   db-banco:
     image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: db-banco
     environment:
       - ACCEPT_EULA=Y
       - MSSQL_SA_PASSWORD=Bank@Docker2026
@@ -20,5 +21,9 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development 
       - ASPNETCORE_URLS=http://+:8080
+      - AllowedHosts=*
       - ConnectionStrings__DefaultConnection=Server=db-banco;Database=ContaBancariaDB;User Id=sa;Password=Bank@Docker2026;TrustServerCertificate=True
+      - Jwt__Issuer=https://api.contabancaria.com
+      - Jwt__Audience=https://api.contabancaria.com
       - Jwt__Key=8zP9kL2mR5vX7nQjW4tS1aB6eH9dG3fC0uI5yO8zN2M
+      - Jwt__ExpiresInMinutes=60
