@@ -20,7 +20,7 @@ Esta é uma API REST robusta desenvolvida para simular um sistema bancário digi
 * **Swagger/OpenAPI** (Documentação e testes da API)
 * **Repository Pattern** (Padronização do acesso a dados)
 ---
-## 📦 Configuração e Execução (Docker)
+## Configuração e Execução (Docker)
 
 Projeto configurado com docker!
 
