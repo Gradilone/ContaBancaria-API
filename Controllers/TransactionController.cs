@@ -5,7 +5,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace ContaBancaria_API.Controllers
 {
-
+    [ApiController]
+    [Route("api/[controller]")]
     public class TransactionController : ControllerBase
     {
         
